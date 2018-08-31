@@ -1,0 +1,19 @@
+{
+  "name": "go-api",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/alphaXkiller/go-api.git"
+  },
+  "author": "Franklin Huang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alphaXkiller/go-api/issues"
+  },
+  "homepage": "https://github.com/alphaXkiller/go-api#readme"
+}
