@@ -32,10 +32,10 @@ class ApiRequest {
    * @params {string} pathName - The object key in path map
    * @params {Object} params - URL parameters map
    */
-  _parsePath(pathName, { ...params }) {
+  _parsePath(pathName, params) {
     const path = this._getPath(pathName)
 
-    return ApiRequest.transformParams(path, { ...params })
+    return ApiRequest.transformParams(path, params)
   }
 
   /**
@@ -44,7 +44,7 @@ class ApiRequest {
    * @params {string} path - The raw path.
    * @params {Object} params - URL parameters map.
    */
-  static transformParams(path, { ...params }) {
+  static transformParams(path, params) {
     const throwErrIfMissParam = param => {
       if (!params[param]) throw new ParamRequiredErr({ param, params })
       return param
