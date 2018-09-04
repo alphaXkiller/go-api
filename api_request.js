@@ -9,7 +9,7 @@ class ApiRequest {
     if (!options.pathMap) throw new Error('pathMap option is required')
     if (!options.baseURL) throw new Error('baseURL option is required')
 
-    this.configFn = options.configFn
+    this.configFn = options.configFn || R.always({})
     this.pathMap = options.pathMap
     this.request = axios.create({
       baseURL: options.baseURL,
@@ -29,12 +29,22 @@ class ApiRequest {
   }
 
   /**
-   * Transform /caliber/:caliberId to /caliber/1 with the given params
-   *
-   * @params {string} path - The raw path. eg: /caliber/:caliberId
-   * @params {Object} params - URL parameters map. eg: {caliberId}
+   * @params {string} pathName - The object key in path map
+   * @params {Object} params - URL parameters map
    */
-  static _transformParams(path, { ...params }) {
+  _parsePath(pathName, { ...params }) {
+    const path = this._getPath(pathName)
+
+    return ApiRequest.transformParams(path, { ...params })
+  }
+
+  /**
+   * Transform /user/:id to /user/1 with the given params
+   *
+   * @params {string} path - The raw path.
+   * @params {Object} params - URL parameters map.
+   */
+  static transformParams(path, { ...params }) {
     const throwErrIfMissParam = param => {
       if (!params[param]) throw new ParamRequiredErr({ param, params })
       return param
@@ -44,7 +54,7 @@ class ApiRequest {
       R.compose(
         param => R.replace(paramWithColon, params[param], accPath),
         throwErrIfMissParam,
-        // :caliberId -> caliberId
+        // :id -> id
         R.slice(1, Infinity)
       )(paramWithColon)
 
@@ -54,16 +64,6 @@ class ApiRequest {
     )
 
     return transform(path)
-  }
-
-  /**
-   * @params {string} pathName - The object key in path map
-   * @params {Object} params - URL parameters map
-   */
-  _parsePath(pathName, { ...params }) {
-    const path = this._getPath(pathName)
-
-    return ApiRequest._transformParams(path, { ...params })
   }
 
   /**
