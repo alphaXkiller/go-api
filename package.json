@@ -15,5 +15,31 @@
   "bugs": {
     "url": "https://github.com/alphaXkiller/go-api/issues"
   },
-  "homepage": "https://github.com/alphaXkiller/go-api#readme"
+  "homepage": "https://github.com/alphaXkiller/go-api#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.6",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^4.17.0",
+    "eslint-config-originate": "^3.0.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-filenames": "^1.2.0",
+    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-react": "^7.6.1",
+    "flow-typed": "^2.5.1"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "ramda": "^0.25.0"
+  }
 }

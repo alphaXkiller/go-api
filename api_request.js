@@ -9,6 +9,7 @@ class ApiRequest {
     if (!options.pathMap) throw new Error('pathMap option is required')
     if (!options.baseURL) throw new Error('baseURL option is required')
 
+    this.configFn = options.configFn
     this.pathMap = options.pathMap
     this.request = axios.create({
       baseURL: options.baseURL,
@@ -73,8 +74,9 @@ class ApiRequest {
    */
   get(pathName, opts = {}) {
     const path = this._parsePath(pathName, opts.params)
+    const config = R.merge({ params: opts.queries }, this.configFn({ path }))
 
-    return this.request.get(path, { params: opts.queries })
+    return this.request.get(path, config)
   }
 
   /**
@@ -86,7 +88,7 @@ class ApiRequest {
   post(pathName, opts = {}) {
     const path = this._parsePath(pathName, opts.params)
 
-    return this.request.post(path, opts.body, { data: opts.body })
+    return this.request.post(path, opts.body, this.configFn({ path }))
   }
 
   /**
@@ -98,7 +100,7 @@ class ApiRequest {
   put(pathName, opts = {}) {
     const path = this._parsePath(pathName, opts.params)
 
-    return this.request.put(path, opts.body)
+    return this.request.put(path, opts.body, this.configFn({ path }))
   }
 
   /**
@@ -109,8 +111,9 @@ class ApiRequest {
    */
   delete(pathName, opts = {}) {
     const path = this._parsePath(pathName, opts.params)
+    const config = R.merge({ params: opts.queries }, this.configFn({ path }))
 
-    return this.request.delete(path, { data: opts.body })
+    return this.request.delete(path, config)
   }
 }
 
