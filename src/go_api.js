@@ -1,10 +1,10 @@
 import * as R from 'ramda'
 import axios from 'axios'
-import { PathNotFoundErr, ParamRequiredErr } from './api_request_error'
+import { PathNotFoundErr, ParamRequiredErr } from './go_api_error'
 
 const PARAM_PATTERN = /:[_0-9a-zA-Z]*/g
 
-class ApiRequest {
+export default class GoAPI {
   constructor(options) {
     if (!options.pathMap) throw new Error('pathMap option is required')
     if (!options.baseURL) throw new Error('baseURL option is required')
@@ -35,7 +35,7 @@ class ApiRequest {
   _parsePath(pathName, params) {
     const path = this._getPath(pathName)
 
-    return ApiRequest.transformParams(path, params)
+    return GoAPI.transformParams(path, params)
   }
 
   /**
@@ -72,11 +72,11 @@ class ApiRequest {
    * @param {string} pathName - The object key in path map
    * @param {Object} opts - Only accept 'params' and 'queries'
    */
-  get(pathName, opts = {}) {
+  async get(pathName, opts = {}) {
     const path = this._parsePath(pathName, opts.params)
-    const config = R.merge({ params: opts.queries }, this.configFn({ path }))
+    const config = await this.configFn({ path })
 
-    return this.request.get(path, config)
+    return this.request.get(path, R.merge({ params: opts.queries }, config))
   }
 
   /**
@@ -85,10 +85,11 @@ class ApiRequest {
    * @param {string} pathName - The object key in path map
    * @param {Object} opts - Only accept 'params' and 'body'
    */
-  post(pathName, opts = {}) {
+  async post(pathName, opts = {}) {
     const path = this._parsePath(pathName, opts.params)
+    const config = await this.configFn({ path })
 
-    return this.request.post(path, opts.body, this.configFn({ path }))
+    return this.request.post(path, opts.body, config)
   }
 
   /**
@@ -97,10 +98,11 @@ class ApiRequest {
    * @param {string} pathName - The object key in path map
    * @param {Object} opts - Only accept 'params' and 'body'
    */
-  put(pathName, opts = {}) {
+  async put(pathName, opts = {}) {
     const path = this._parsePath(pathName, opts.params)
+    const config = await this.configFn({ path })
 
-    return this.request.put(path, opts.body, this.configFn({ path }))
+    return this.request.put(path, opts.body, config)
   }
 
   /**
@@ -109,12 +111,10 @@ class ApiRequest {
    * @param {string} pathName - The object key in path map
    * @param {Object} opts - Only accept 'params' and 'body'
    */
-  delete(pathName, opts = {}) {
+  async delete(pathName, opts = {}) {
     const path = this._parsePath(pathName, opts.params)
-    const config = R.merge({ params: opts.queries }, this.configFn({ path }))
+    const config = await this.configFn({ path })
 
-    return this.request.delete(path, config)
+    return this.request.delete(path, R.merge({ params: opts.queries }, config))
   }
 }
-
-export default ApiRequest

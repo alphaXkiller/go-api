@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "npm run test",
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -17,16 +18,11 @@
   },
   "homepage": "https://github.com/alphaXkiller/go-api#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.6",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-flow": "^6.23.0",
-    "babel-preset-react": "^6.24.1",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-eslint": "^9.0.0",
     "eslint": "^4.17.0",
     "eslint-config-originate": "^3.0.0",
     "eslint-config-prettier": "^2.9.0",
@@ -36,10 +32,15 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.6.1",
-    "flow-typed": "^2.5.1"
+    "flow-typed": "^2.5.1",
+    "jest": "^23.5.0",
+    "rollup-plugin-babel": "^4.0.3",
+    "webpack-cli": "^3.1.0"
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "ramda": "^0.25.0"
+    "global": "^4.3.2",
+    "ramda": "^0.25.0",
+    "webpack": "^4.17.2"
   }
 }

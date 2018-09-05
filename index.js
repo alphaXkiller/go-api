@@ -1,5 +1,3 @@
-import apiRequest from './api_request'
-import { PathNotFoundErr, KeyRequiredErr } from './api_request_error'
+const GoAPI = require('./dist')
 
-export { PathNotFoundErr, KeyRequiredErr }
-export default apiRequest
+module.exports = GoAPI

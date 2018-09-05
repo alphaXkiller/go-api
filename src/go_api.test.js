@@ -1,6 +1,5 @@
-import axiosMock from 'core/test/axios_mock'
-import ApiRequest from './api_request'
-import { PathNotFoundErr, ParamRequiredErr } from './api_request_error'
+import ApiRequest from './go_api'
+import { PathNotFoundErr, ParamRequiredErr } from './go_api_error'
 
 const pathMap = {
   caliber: '/caliber',
